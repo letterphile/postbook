@@ -1,6 +1,6 @@
 import paramiko
 import os
-from send_files import send_files
+from postbook.send_files import send_files
 def write_conf():
     nginx_conf_string = """
     events {}

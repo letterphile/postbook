@@ -2,11 +2,11 @@ import typer
 import os
 import pickle
 app = typer.Typer()
-from get_list_of_files import get_files
-from write_html import write_html
-from send_files import send_files
-from update_index import update_index
-from setting_the_host import host_setup
+from postbook.get_list_of_files import get_files
+from postbook.write_html import write_html
+from postbook.send_files import send_files
+from postbook.update_index import update_index
+from postbook.setting_the_host import host_setup
 
 @app.command()
 def hello(name: str):
@@ -84,8 +84,9 @@ def setup():
     with open(f"{current_directory}/.plog","rb") as f:
         meta_data = pickle.load(f)
     host_setup(meta_data['ip_address'],meta_data['username'],meta_data['password'])
-    
-if __name__ == "__main__":
+    send_files({current_directory})
+
+def main():
     app()
     
     

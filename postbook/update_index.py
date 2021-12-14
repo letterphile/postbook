@@ -1,5 +1,5 @@
 from jinja2 import Template, Environment, FileSystemLoader
-from get_list_of_files import get_files
+from postbook.get_list_of_files import get_files
 import os
 import pickle
 import paramiko
