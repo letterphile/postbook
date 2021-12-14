@@ -26,6 +26,7 @@ setuptools.setup(
         'nbformat>=5.1.3'
     ],
     python_requires='>=3.6',
+    package_data={'postbook': ['templates/*.jinja']},
     entry_points={
         'console_scripts': [
             'postbook=postbook.main:main',

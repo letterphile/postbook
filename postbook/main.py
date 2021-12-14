@@ -84,7 +84,7 @@ def setup():
     with open(f"{current_directory}/.plog","rb") as f:
         meta_data = pickle.load(f)
     host_setup(meta_data['ip_address'],meta_data['username'],meta_data['password'])
-    send_files({current_directory})
+    
 
 def main():
     app()
