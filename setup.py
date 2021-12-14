@@ -18,6 +18,13 @@ setuptools.setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
+    install_requires=[
+        'nbconvert>=6.3.0',
+        'typer>=0.4.0',
+        'Jinja2>=3.0.3',
+        'paramiko>=2.8.1',
+        'nbformat>=5.1.3'
+    ],
     python_requires='>=3.6',
     entry_points={
         'console_scripts': [
