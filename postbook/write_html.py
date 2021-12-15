@@ -8,10 +8,10 @@ import os
 
 def write_html(ipynb_file_path,name):
     f = open(ipynb_file_path)
-    html_exporter = HTMLExporter()
+    html_exporter = HTMLExporter(template_name='classic')
     current_directory = os.getcwd()
     final_directory = os.path.join(current_directory, r'posts')
-    html_exporter.template_name = 'classic'
+    
     jake_notebook = nbformat.reads(json.dumps(json.loads(f.read())), as_version=4)
     (body, resources) = html_exporter.from_notebook_node(jake_notebook)
     html_file_location = os.path.join(final_directory, r'{}'.format(name.replace(' ','_')+'.html'))
