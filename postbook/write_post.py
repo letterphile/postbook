@@ -3,12 +3,6 @@ import nbformat
 import json
 from nbconvert import HTMLExporter
 import os
-
-
-import nbformat
-import json
-from nbconvert import HTMLExporter
-import os
 from traitlets import HasTraits, Unicode, List, Dict, Bool, default, observe, validate
 from inspect import currentframe, getframeinfo
 from nbconvert import templateexporter,exporter
@@ -27,10 +21,7 @@ from jinja2 import (
     TemplateNotFound, Environment, ChoiceLoader, FileSystemLoader, BaseLoader,
     DictLoader
 )
-from postbook.CustomHTMLExporter import CustomHTMLExporter
-
-class CustomExporter(CustomHTMLExporter):
-    
+class CustomExporter(HTMLExporter):
     @default('template_paths')
     def _template_paths(self, prune=True, root_dirs=None):
         paths = []
@@ -140,9 +131,8 @@ class CustomExporter(CustomHTMLExporter):
 
         # self.register_filter('highlight_code', highlight_code)
         # self.register_filter('filter_data_type', filter_data_type)
-        return super().from_notebook_node(nb, resources,**kw) 
-
-def write_html(ipynb_file_path,name):
+        return super().from_notebook_node(nb, resources,**kw)  
+def write_post(ipynb_file_path):
     f = open(ipynb_file_path)
     html_exporter = CustomExporter(template_name='aswins')
     current_directory = os.getcwd()
@@ -150,7 +140,13 @@ def write_html(ipynb_file_path,name):
     
     jake_notebook = nbformat.reads(json.dumps(json.loads(f.read())), as_version=4)
     (body, resources) = html_exporter.from_notebook_node(jake_notebook)
-    html_file_location = os.path.join(final_directory, r'{}'.format(name.replace(' ','_')+'.html'))
-    with open(html_file_location,'w') as f:
+    
+ 
+  
+   
+    
+    with open('test.html','w') as f:
         f.write(body)
-    return html_file_location
+    
+
+write_html('Lab_0.ipynb')

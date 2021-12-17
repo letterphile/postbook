@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="postbook", 
-    version="0.0.1",
+    version="0.0.2",
     author="Aswin Rajasekharan",
     author_email="aswin4400@gmail.com",
     description="Convert IPython Notebook to Blog Post",
@@ -26,7 +26,8 @@ setuptools.setup(
         'nbformat>=5.1.3'
     ],
     python_requires='>=3.6',
-    package_data={'postbook': ['templates/*.jinja']},
+    package_data={'postbook': ['templates/*','templates/aswins/*','templates/aswins/static/*',\
+        'templates/classic/*','templates/classic/static/*','templates/base/*','templates/base/static/*']},
     entry_points={
         'console_scripts': [
             'postbook=postbook.main:main',
