@@ -12952,5 +12952,13 @@ nav {
 
 }
 #notebook-container {
-  margin-top: 50px;
+  margin-top: 5px;
+}
+
+.titleoftheblog{
+  padding-top:50px;
+  margin-top:50px;
+  font-size:40px;
+  font-weight:800;
+  margin-left:100px;
 }

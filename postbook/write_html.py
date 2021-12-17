@@ -130,7 +130,7 @@ class CustomExporter(CustomHTMLExporter):
                 (self.output_mimetype, self.template_name, supported_mimetypes))
         return template_names + ['aswins']
 
-    def from_notebook_node(self, nb, resources={'blog_name':'naari'}, **kw):
+    def from_notebook_node(self, nb, resources=None, **kw):
         # langinfo = nb.metadata.get('language_info', {})
         # lexer = langinfo.get('pygments_lexer', langinfo.get('name', None))
         # print("myreeeeeeeeee")
@@ -140,11 +140,12 @@ class CustomExporter(CustomHTMLExporter):
 
         # self.register_filter('highlight_code', highlight_code)
         # self.register_filter('filter_data_type', filter_data_type)
-        return super().from_notebook_node(nb, resources,**kw) 
+        return super().from_notebook_node(nb, resources=self.render_data,**kw) 
 
 def write_html(ipynb_file_path,name):
     f = open(ipynb_file_path)
     html_exporter = CustomExporter(template_name='aswins')
+    html_exporter.render_data = {'blog_name':'chetta','blog_title':name} #monkey patching
     current_directory = os.getcwd()
     final_directory = os.path.join(current_directory, r'posts')
     
