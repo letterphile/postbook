@@ -7,7 +7,7 @@ from postbook.write_html import write_html
 from postbook.send_files import send_files
 from postbook.update_index import update_index
 from postbook.setting_the_host import host_setup
-
+from datetime import datetime
 @app.command()
 def hello(name: str):
     typer.echo(f"Hello {name}")
@@ -42,8 +42,9 @@ def start(name: str):
     domain = None
     if(domain_flag=='y' or domain_flag=='Y'):
         domain = typer.prompt("What's your domain address ? ")
+    default_author = typer.prompt("Default Authors Name ?")
     with open(f"{final_directory}/.plog","wb") as f:
-        pickle.dump({'name':name,'email':email,'ip_address':ip_address,'username':username,'password':password,'domain':domain},f)
+        pickle.dump({'name':name,'email':email,'ip_address':ip_address,'username':username,'password':password,'domain':domain,'default_author':default_author},f)
 
     
 @app.command()
@@ -52,32 +53,35 @@ def getfiles():
     html_files = [x for x in get_files(current_directory+'/posts/') if '.html' in x ]
     return html_files
 
-@app.command()
-def writehtml(path_to_file:str):
-    post_title = 'My first blog'
-    write_html(path_to_file,post_title)
-    current_directory = os.getcwd()
-    with open(f"{current_directory}/.plog","rb") as f:
-        meta_data = pickle.load(f)
+
     
     final_directory = os.path.join(current_directory, r'{}'.format(meta_data['name']))
     #send_files(path_to_file,)
 
-@app.command()
-def refresh():
-    list_of_files = getfiles()
-    
-    print(list_of_files)
+
 
 
 @app.command()
 def publish(path_to_file:str, post_title:str):
+    current_directory = os.getcwd()
+    published_on = datetime.now().strftime("%d-%B-%Y (%I:%M %p)")
+    print(hello)
+    with open(f"{current_directory}/.plog","rb") as f:
+        meta_data = pickle.load(f)
+    with open(f"{current_directory}/.plog","wb") as f: 
+        meta_data[post_title]={'published_on':published_on}   
+        pickle.dump(meta_data,f)
+    print(hello)
     html_file_location = write_html(path_to_file,post_title)
-    print(html_file_location)
+    published_on = datetime.now().strftime("%d-%B-%Y (%I:%M %p)")
+    
+    
     send_files(html_file_location,'/root/blog/{}.html'.format(post_title.replace(' ','_')))
     
     update_index()
     send_files('index.html','/root/blog/index.html')
+
+
 @app.command()
 def setup():
     current_directory = os.getcwd()

@@ -158,7 +158,7 @@ def write_html(ipynb_file_path,name):
     abstract = result.group(1)
     with open(f"{current_directory}/.plog","rb") as f:
         meta_data = pickle.load(f)
-        meta_data[name] = abstract
+        meta_data[name]['abstract'] = abstract
         
     with open(f"{current_directory}/.plog","wb") as f:
         pickle.dump(meta_data,f)
