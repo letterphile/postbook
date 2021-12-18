@@ -24,4 +24,6 @@ templateexporter.TemplateExporter
 class CustomTemplateExporter(templateexporter.TemplateExporter):
     @default('extra_template_basedirs')
     def _default_extra_template_basedirs(self):
-        return ['/home/aswin/plog_project/postbook/templates']
+        file_path_list = os.path.realpath(__file__).split('/')[:-1]
+        file_path = '/'.join(file_path_list)+'/templates'
+        return [file_path]

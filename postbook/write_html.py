@@ -3,7 +3,7 @@ import nbformat
 import json
 from nbconvert import HTMLExporter
 import os
-
+import pickle
 
 import nbformat
 import json
@@ -143,13 +143,16 @@ class CustomExporter(CustomHTMLExporter):
         return super().from_notebook_node(nb, resources=self.render_data,**kw) 
 
 def write_html(ipynb_file_path,name):
-    f = open(ipynb_file_path)
-    html_exporter = CustomExporter(template_name='aswins')
-    html_exporter.render_data = {'blog_name':'chetta','blog_title':name} #monkey patching
-    current_directory = os.getcwd()
-    final_directory = os.path.join(current_directory, r'posts')
     
-    jake_notebook = nbformat.reads(json.dumps(json.loads(f.read())), as_version=4)
+    current_directory = os.getcwd()
+    with open(current_directory+'/.plog','rb') as p:
+        site_details = pickle.load(p)
+    html_exporter = CustomExporter(template_name='aswins')
+    html_exporter.render_data = {'blog_name':site_details['name'],'blog_title':name} #monkey patching
+    
+    final_directory = os.path.join(current_directory, r'posts')
+    with open(ipynb_file_path) as f:
+        jake_notebook = nbformat.reads(json.dumps(json.loads(f.read())), as_version=4)
     (body, resources) = html_exporter.from_notebook_node(jake_notebook)
     html_file_location = os.path.join(final_directory, r'{}'.format(name.replace(' ','_')+'.html'))
     with open(html_file_location,'w') as f:
