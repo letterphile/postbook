@@ -4,7 +4,7 @@ import json
 from nbconvert import HTMLExporter
 import os
 import pickle
-
+import re
 import nbformat
 import json
 from nbconvert import HTMLExporter
@@ -154,6 +154,14 @@ def write_html(ipynb_file_path,name):
     with open(ipynb_file_path) as f:
         jake_notebook = nbformat.reads(json.dumps(json.loads(f.read())), as_version=4)
     (body, resources) = html_exporter.from_notebook_node(jake_notebook)
+    result = re.search('<p>(.*)</p>', body)       
+    abstract = result.group(1)
+    with open(f"{current_directory}/.plog","rb") as f:
+        meta_data = pickle.load(f)
+        meta_data[name] = abstract
+        
+    with open(f"{current_directory}/.plog","wb") as f:
+        pickle.dump(meta_data,f)
     html_file_location = os.path.join(final_directory, r'{}'.format(name.replace(' ','_')+'.html'))
     with open(html_file_location,'w') as f:
         f.write(body)

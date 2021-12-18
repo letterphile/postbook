@@ -12,6 +12,7 @@ class HtmlChapter:
         current_directory = os.getcwd()
         with open(f"{current_directory}/.plog","rb") as f:
             meta_data = pickle.load(f)
+            self.abstract = meta_data[self.title.replace('_',' ')]
         if(meta_data['domain']):
             path = f"http://{meta_data['domain']}/" + self.title+'.html'
         else:
@@ -36,7 +37,7 @@ def update_index():
     print(meta_data)
     # load the `index.jinja` template
     print("read the pickle file")
-    index_template = env.get_template('index.jinja')
+    index_template = env.get_template('index.j2')
     output_from_parsed_template = index_template.render(posts=posts, blog_name=meta_data['name'])
     
         
