@@ -8,6 +8,7 @@ from postbook.send_files import send_files
 from postbook.update_index import update_index
 from postbook.setting_the_host import host_setup
 from datetime import datetime
+from jinja2 import Template, Environment, FileSystemLoader
 @app.command()
 def hello(name: str):
     typer.echo(f"Hello {name}")
@@ -81,6 +82,19 @@ def publish(path_to_file:str, post_title:str):
     update_index()
     send_files('index.html','/root/blog/index.html')
 
+@app.command()
+def index(index_name):
+    current_directory = os.getcwd()
+    final_directory = os.path.join(current_directory, r'{}'.format(index_name))
+    final_directory_with_posts = os.path.join(final_directory, r'posts')
+    if not os.path.exists(final_directory):
+        os.makedirs(final_directory)
+        os.makedirs(final_directory_with_posts)
+   
+    # file_path_list = os.path.realpath(__file__).split('/')[:-1]
+    # file_path = '/'.join(file_path_list)
+    # template_location  = file_path+'/templates/'
+    
 
 @app.command()
 def setup():
