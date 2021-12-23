@@ -27,17 +27,17 @@ def update_index():
     file_path_list = os.path.realpath(__file__).split('/')[:-1]
     file_path = '/'.join(file_path_list)
     template_location  = file_path+'/templates/'
-    print(template_location)
+
     posts = [HtmlChapter(x) for x in get_files(current_directory+'/posts/')] 
-    print(posts)
+ 
     # load templates folder to environment (security measure)
     env = Environment(loader=FileSystemLoader(template_location))
-    print(env)
+   
     with open(f"{current_directory}/.plog","rb") as f:
         meta_data = pickle.load(f)
-    print(meta_data)
+    
     # load the `index.jinja` template
-    print("read the pickle file")
+    
     index_template = env.get_template('index.j2')
     output_from_parsed_template = index_template.render(posts=posts, blog_name=meta_data['name'],author_name=meta_data['default_author'])
     
