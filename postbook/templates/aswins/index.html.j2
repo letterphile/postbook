@@ -28,12 +28,9 @@
 {% endblock jupyter_widgets %}
 
 {% for css in resources.inlining.css -%}
-  
- <link href="css/bootstrap.min.css" rel="stylesheet">
-
-        <!-- Custom CSS -->
-        <link href="css/simple-blog-template.css" rel="stylesheet">  
-  
+  <style type="text/css">
+  {{ css }}
+  </style>
 {% endfor %}
 
 {% block notebook_css %}
@@ -84,42 +81,55 @@ div#notebook-container{
 {%- endblock html_head_css -%}
 
 {%- endblock html_head -%}
+    <style>
+    body{
+margin:0;
+padding:0;
+}
+  .mynav{
+    position: fixed;
+    right: 0;
+    left: 0;
+    z-index: 1030;
+    background-color: #222;
+    padding: 20px;
+    border-color: #080808;
+    box-sizing: border-box;
+    
+}
+
+.blog_name{
+    color: white;
+    font-weight: bold;
+    font-size: 25px;
+    float: left;
+    padding: 6px 0px;
+    text-transform: uppercase;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    line-height: 18px;
+    height: 30px;
+}
+    </style>
 </head>
 {%- endblock header -%}
 
 {% block body_header %}
-<body>
-<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-      <div class="container">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="index.html">{{resources.blog_name}}</a>
-        </div>
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          
-        </div>
-        <!-- /.navbar-collapse -->
-      </div>
-      <!-- /.container -->
-    </nav>
-    <div class="titleoftheblog" >
+<body >
+<div class="mynav">
+<div class="blog_name">
+    <a href="index.html">{{resources.blog_name}}</a>
+</div>
+</div>
+ <div class="titleoftheblog" style="margin-top:60px;">
     {{resources.blog_title}}
     </div>
   <div tabindex="-1" id="notebook" class="border-box-sizing">
-    <div class="container" id="notebook-container">
+    <div class="container" id="notebook-container" >
 {% endblock body_header %}
 
 {% block body_footer %}
     </div>
   </div>
-
 </body>
 {% endblock body_footer %}
 
