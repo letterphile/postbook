@@ -124,13 +124,14 @@ def notebooks(nb_path):
     nb_files = [f for f in onlyfiles if re.search('\.ipynb',f)]
     for filename in os.listdir('posts'):
         file_path = os.path.join('posts', filename)
-    try:
-        if os.path.isfile(file_path) or os.path.islink(file_path):
-            os.unlink(file_path)
-        elif os.path.isdir(file_path):
-            shutil.rmtree(file_path)
-    except Exception as e:
-        print('Failed to delete %s. Reason: %s' % (file_path, e))
+        print(file_path)
+        try:
+            if os.path.isfile(file_path) or os.path.islink(file_path):
+                os.unlink(file_path)
+            elif os.path.isdir(file_path):
+                shutil.rmtree(file_path)
+        except Exception as e:
+            print('Failed to delete %s. Reason: %s' % (file_path, e))
     for nb_file in nb_files:
         publish(os.path.join(nb_path, nb_file))
 

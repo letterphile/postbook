@@ -10,7 +10,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 {% set nb_title = nb.metadata.get('title', '') or resources['metadata']['name'] %}
-<title>{{nb_title}}</title>
+<title>{{resources.blog_title}}</title>
 
 {%- block html_head_js -%}
 {%- block html_head_js_jquery -%}
