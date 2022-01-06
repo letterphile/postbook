@@ -9,6 +9,10 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
+@charset "utf-8";
+
+/* fonts */
+ @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400;1,700&family=Questrial&family=Ubuntu+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 html {
   font-family: sans-serif;
   -ms-text-size-adjust: 100%;
@@ -67,6 +71,9 @@ dfn {
 h1 {
   font-size: 2em;
   margin: 0.67em 0;
+  font-family: 'Questrial', sans-serif;
+  font-weight: 400;
+  color: #3D3F4F;
 }
 mark {
   background: #ff0;
@@ -10480,8 +10487,9 @@ div.cell.selected.jupyter-soft-selected:before {
 }
 .prompt {
   /* This needs to be wide enough for 3 digit prompt numbers: In[100]: */
-  min-width: 14ex;
+  /* min-width: 14ex; */
   /* This padding is tuned to match the padding on the CodeMirror editor. */
+  display:none;
   padding: 0.4em;
   margin: 0px;
   font-family: monospace;
@@ -11412,18 +11420,14 @@ div#notebook {
   padding-top: 20px;
   margin: 0px;
   outline: none;
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  min-height: 100%;
+
 }
 @media not print {
   #notebook-container {
     padding: 15px;
     background-color: #fff;
     min-height: 0;
-    -webkit-box-shadow: 0px 0px 12px 1px rgba(87, 87, 87, 0.2);
-    box-shadow: 0px 0px 12px 1px rgba(87, 87, 87, 0.2);
+    
   }
 }
 @media print {
@@ -11459,7 +11463,20 @@ samp {
 }
 p {
   margin-bottom: 0;
+  font-style: normal;
+    font-variant-ligatures: normal;
+    font-variant-caps: normal;
+    font-variant-numeric: normal;
+    font-variant-east-asian: normal;
+    font-weight: 400;
+    font-stretch: normal;
+    font-size: 17px;
+    line-height: 25px;
+    font-family: Merriweather, serif;
+
+
 }
+
 .end_space {
   min-height: 100px;
   transition: height .2s ease;
@@ -12956,9 +12973,12 @@ nav {
 }
 
 .titleoftheblog{
-  padding-top:50px;
-  margin-top:50px;
+  display:flex;
+  margin-top:80px;
+  margin-bottom:10px;
+  margin-right: auto;
+  margin-left: auto;
   font-size:40px;
   font-weight:800;
-  margin-left:100px;
+  
 }
