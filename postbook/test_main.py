@@ -159,8 +159,7 @@ def notebooks(nb_path):
 
 
 
-def main():
-    app()
+app()
     
     
 

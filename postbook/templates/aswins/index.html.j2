@@ -117,17 +117,27 @@ p{
 {%- endblock header -%}
 
 {% block body_header %}
+
 <body >
-<div class="mynav">
-<div class="blog_name">
-    <a href="index.html">{{resources.blog_name}}</a>
-</div>
-</div>
+
 
   <div tabindex="-1" id="notebook" class="border-box-sizing">
+  
     <div class="container" id="notebook-container" >
+     <div class="heading">
+    <a href="index.html">Aswin Rajasekharan's</a> Thoughts and Writings
+  </div>
+  <div class="navigation">
+        <ul>
+          <li><a href="/">blog</a>
+          </li><li><a href="/projects/">projects</a>
+          </li><li><a href="/about/">about</a>
+        </li></ul>
+      </div>
      <div class="titleoftheblog" style="margin-top:60px;">
+     
     {{resources.blog_title}}
+ 
     </div>
 {% endblock body_header %}
 

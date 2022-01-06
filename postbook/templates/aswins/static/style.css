@@ -52,7 +52,16 @@ template {
   display: none;
 }
 a {
-  background-color: transparent;
+  font-style: normal;
+    font-variant-ligatures: normal;
+    font-variant-caps: normal;
+    font-variant-numeric: normal;
+    font-variant-east-asian: normal;
+    font-stretch: normal;
+    font-size: 17px;
+    line-height: 25px;
+    font-family: Merriweather, serif;
+    color: #8F4B5D;
 }
 a:active,
 a:hover {
@@ -71,7 +80,8 @@ dfn {
 h1 {
   font-size: 2em;
   margin: 0.67em 0;
-  font-family: 'Questrial', sans-serif;
+  font-family: Merriweather, serif;
+  font-style:normal;
   font-weight: 400;
   color: #3D3F4F;
 }
@@ -1097,7 +1107,7 @@ textarea {
   line-height: inherit;
 }
 a {
-  color: #337ab7;
+  color: #8F4B5D;
   text-decoration: none;
 }
 a:hover,
@@ -1592,12 +1602,12 @@ pre code {
 }
 @media (min-width: 992px) {
   .container {
-    width: 940px;
+    width: 900px;
   }
 }
 @media (min-width: 1200px) {
   .container {
-    width: 1140px;
+    width: 900px;
   }
 }
 .container-fluid {
@@ -11476,7 +11486,7 @@ p {
 
 
 }
-
+@media
 .end_space {
   min-height: 100px;
   transition: height .2s ease;
@@ -12973,12 +12983,74 @@ nav {
 }
 
 .titleoftheblog{
-  display:flex;
-  margin-top:80px;
-  margin-bottom:10px;
-  margin-right: auto;
-  margin-left: auto;
-  font-size:40px;
-  font-weight:800;
   
+  
+  font-family: 'Questrial', sans-serif;
+  font-weight: 400;
+  color: #3D3F4F;
+  margin-top: 15px;
+  margin-right: 0px;
+  margin-bottom: 25px;
+  margin-left: 0px;
+  font-size: 52px;
+  line-height: 56px;
+}
+
+@media only screen and (max-width: 767px){
+  .titleoftheblog {
+   font-size:24px;
+ }
+}
+
+
+@media only screen and (max-width: 767px){
+  p {
+   font-size:15px;
+ }
+}
+
+
+.heading{
+ 
+    height: 25px;
+    font-style: normal;
+    font-variant-ligatures: normal;
+    font-variant-caps: normal;
+    font-variant-numeric: normal;
+    font-variant-east-asian: normal;
+    font-weight: 400;
+    font-stretch: normal;
+    font-size: 17px;
+    line-height: 25px;
+    font-family: Merriweather, serif;
+    float:left;
+}
+.navigation{
+  display: block;
+  float: right;
+}
+
+.navigation ul{
+  display: block;
+  list-style: none;
+}
+.navigation li{
+  display: inline;
+  margin: 0 2px;
+
+}
+
+@media only screen and (max-width: 767px){
+  .navigation {
+   font-size: 12px;
+ }
+ .heading {
+  font-size: 12px;
+}
+.heading a {
+  font-size: 12px;
+}
+.navigation a {
+  font-size: 12px;
+}
 }
