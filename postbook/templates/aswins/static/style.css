@@ -1108,7 +1108,7 @@ textarea {
 }
 a {
   color: #8F4B5D;
-  text-decoration: none;
+  text-decoration: underline;
 }
 a:hover,
 a:focus {
@@ -12988,10 +12988,10 @@ nav {
   font-family: 'Questrial', sans-serif;
   font-weight: 400;
   color: #3D3F4F;
-  margin-top: 15px;
   margin-right: 0px;
   margin-bottom: 25px;
   margin-left: 0px;
+  margin-top:40px;
   font-size: 52px;
   line-height: 56px;
 }

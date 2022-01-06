@@ -126,7 +126,7 @@ def index(index_name):
     file_path = '/'.join(file_path_list)
     template_location  = file_path+'/templates/'
     env = Environment(loader=FileSystemLoader(template_location))
-    index_template = env.get_template('index.j2')
+    index_template = env.get_template('index.html.j2')
     output_from_parsed_template = index_template.render(posts=posts, blog_name=meta_data['name'],author_name=meta_data['default_author'])
    
     # write the parsed template
