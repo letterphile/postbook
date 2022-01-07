@@ -70,18 +70,18 @@ def publish(path_to_file:str):
     post_title = re.search('([a-zA-Z0-9_]*).ipynb',path_to_file).group(1).replace('_',' ')
    
     current_directory = os.getcwd()
-    published_on = datetime.now().strftime("%d-%B-%Y (%I:%M %p)")
    
     with open(f"{current_directory}/.plog","rb") as f:
         meta_data = pickle.load(f)
-    with open(f"{current_directory}/.plog","wb") as f: 
-        meta_data[post_title]={'published_on':published_on}   
-        pickle.dump(meta_data,f)
+        try:
+            published_on = meta_data[post_title]['published_on']
+        except KeyError:
+            published_on = datetime.now().strftime("%d-%B-%Y (%I:%M %p)")
+            meta_data[post_title]={'published_on':published_on}   
+            pickle.dump(meta_data,f)
     
     html_file_location = write_html(path_to_file,post_title)
-    published_on = datetime.now().strftime("%d-%B-%Y (%I:%M %p)")
-    
-    
+      
     send_files(html_file_location,'/root/blog/{}.html'.format(post_title.replace(' ','_')))
     
     update_index()
@@ -93,13 +93,6 @@ def html(path_to_file:str):
     post_title = re.search('([a-zA-Z0-9_]*).ipynb',path_to_file).group(1).replace('_',' ')
    
     current_directory = os.getcwd()
-    published_on = datetime.now().strftime("%d-%B-%Y (%I:%M %p)")
-   
-    with open(f"{current_directory}/.plog","rb") as f:
-        meta_data = pickle.load(f)
-    with open(f"{current_directory}/.plog","wb") as f: 
-        meta_data[post_title]={'published_on':published_on}   
-        pickle.dump(meta_data,f)
     
     html_file_location = write_html(path_to_file,post_title)
     published_on = datetime.now().strftime("%d-%B-%Y (%I:%M %p)")

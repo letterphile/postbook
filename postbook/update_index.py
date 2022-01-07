@@ -36,6 +36,7 @@ def update_index():
     with open(f"{current_directory}/.plog","rb") as f:
         meta_data = pickle.load(f)
     
+    
     # load the `index.jinja` template
     
     index_template = env.get_template('index.html.j2')

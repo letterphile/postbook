@@ -1,4 +1,5 @@
 from __future__ import print_function, absolute_import
+from copy import Error
 import nbformat
 import json
 from nbconvert import HTMLExporter
@@ -17,7 +18,7 @@ import uuid
 import json
 import warnings
 from pathlib import Path
-
+from datetime import datetime
 from jupyter_core.paths import jupyter_path
 from traitlets import HasTraits, Unicode, List, Dict, Bool, default, observe, validate
 from traitlets.config import Config
@@ -28,6 +29,7 @@ from jinja2 import (
     DictLoader
 )
 from postbook.CustomHTMLExporter import CustomHTMLExporter
+
 
 class CustomExporter(CustomHTMLExporter):
     
@@ -148,18 +150,29 @@ def write_html(ipynb_file_path,name):
     with open(current_directory+'/.plog','rb') as p:
         site_details = pickle.load(p)
     html_exporter = CustomExporter(template_name='aswins')
-    html_exporter.render_data = {'blog_name':site_details['name'],'blog_title':name} #monkey patching
-    
+    try:
+        html_exporter.render_data = {'blog_name':site_details['name'],'blog_title':name,'published_on':site_details[name]['published_on']} #monkey patching
+    except KeyError:
+        published_on = datetime.now().strftime("%d-%B-%Y (%I:%M %p)")
+        site_details[name]={'published_on':published_on} 
+        with open(current_directory+'/.plog','wb') as p:  
+            pickle.dump(site_details,p)
+            html_exporter.render_data = {'blog_name':site_details['name'],'blog_title':name,'published_on':published_on}
     final_directory = os.path.join(current_directory, r'posts')
     with open(ipynb_file_path) as f:
         jake_notebook = nbformat.reads(json.dumps(json.loads(f.read())), as_version=4)
     (body, resources) = html_exporter.from_notebook_node(jake_notebook)
-    result = re.search('<p>(.*)</p>', body)       
-    abstract = result.group(1)
+    result = re.search('<p>(.*)</p>', body)  
+    try:     
+        abstract = result.group(1)
+    except Exception:
+        abstract  = None
     with open(f"{current_directory}/.plog","rb") as f:
         meta_data = pickle.load(f)
-        meta_data[name]['abstract'] = abstract
-        
+        try:
+            meta_data[name]['abstract'] = abstract
+        except KeyError:
+            meta_data[name]={'abstract':abstract}
     with open(f"{current_directory}/.plog","wb") as f:
         pickle.dump(meta_data,f)
     html_file_location = os.path.join(final_directory, r'{}'.format(name.replace(' ','_')+'.html'))

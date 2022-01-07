@@ -81,9 +81,8 @@ h1 {
   font-size: 2em;
   margin: 0.67em 0;
   font-family: Merriweather, serif;
-  font-style:normal;
-  font-weight: 400;
   color: #3D3F4F;
+ 
 }
 mark {
   background: #ff0;
@@ -13009,7 +13008,10 @@ nav {
  }
 }
 
-
+h1{
+  font-family: 'Questrial', sans-serif;
+  color: #3D3F4F;
+}
 .heading{
  
     height: 25px;
@@ -13053,4 +13055,8 @@ nav {
 .navigation a {
   font-size: 12px;
 }
+}
+p.date{
+  font-family: 'Merriweather', 'serif';
+  font-style:italic
 }
