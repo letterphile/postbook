@@ -10,6 +10,8 @@ from postbook.setting_the_host import host_setup
 from datetime import datetime
 from jinja2 import Template, Environment, FileSystemLoader
 from postbook.PageChapter import PageChapter
+from postbook.make_dir_ssh import make_dir
+
 import re
 
 @app.command()
@@ -66,7 +68,7 @@ def getfiles():
 
 
 @app.command()
-def publish(path_to_file:str):
+def publish(path_to_file:str,page_name:str):
     post_title = re.search('([a-zA-Z0-9_]*).ipynb',path_to_file).group(1).replace('_',' ')
    
     current_directory = os.getcwd()
@@ -82,11 +84,12 @@ def publish(path_to_file:str):
             pickle.dump(meta_data,f)
     
     html_file_location = write_html(path_to_file,post_title)
-      
-    send_files(html_file_location,'/root/blog/{}.html'.format(post_title.replace(' ','_')))
+    dir_path = make_dir(f"{page_name}/{post_title.replace(' ','_')}")
+    print("dir_name is",dir_path)
+    send_files(html_file_location,f'/root/site/{dir_path}/index.html')
     
     update_index()
-    send_files('index.html','/root/blog/index.html')
+    send_files('index.html','/root/site/index.html')
 
 @app.command()
 def html(path_to_file:str):
@@ -151,7 +154,10 @@ def notebooks(nb_path):
     for nb_file in nb_files:
         publish(os.path.join(nb_path, nb_file))
 
-
+@app.command()
+def page(page_name):
+    dir_name = make_dir(page_name)
+    print(f'{dir_name} directory created..')
 
 def main():
     app()

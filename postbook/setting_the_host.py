@@ -16,7 +16,7 @@ gzip_http_version 1.1;
 gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript;
         server {
         location / {
-            root /root/blog ;
+            root /root/site ;
 
         }
 
@@ -44,9 +44,8 @@ def host_setup(ip_address,username,password):
         print (line)
     print("Setting up permissions...")
     print(working_dir)
-    permission_command_main_dir = f'mkdir blog && chmod +x {working_dir} && chmod +x blog'
-    permission_command_posts_dir = f'mkdir blog/posts'
-    (stdin, stdout, stderr) = s.exec_command(permission_command)
+    permission_command_main_dir = f'mkdir site && chmod +x {working_dir} && chmod +x site'
+    (stdin, stdout, stderr) = s.exec_command(permission_command_main_dir)
     for line in stdout.readlines():
         print (line)
     write_conf()
