@@ -73,11 +73,12 @@ def publish(path_to_file:str):
    
     with open(f"{current_directory}/.plog","rb") as f:
         meta_data = pickle.load(f)
-        try:
-            published_on = meta_data[post_title]['published_on']
-        except KeyError:
-            published_on = datetime.now().strftime("%d-%B-%Y (%I:%M %p)")
-            meta_data[post_title]={'published_on':published_on}   
+    try:
+        published_on = meta_data[post_title]['published_on']
+    except KeyError:
+        published_on = datetime.now().strftime("%d-%B-%Y (%I:%M %p)")
+        meta_data[post_title]={'published_on':published_on}   
+        with open(f"{current_directory}/.plog","wb") as f:
             pickle.dump(meta_data,f)
     
     html_file_location = write_html(path_to_file,post_title)

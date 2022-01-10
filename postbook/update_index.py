@@ -29,7 +29,9 @@ def update_index():
     template_location  = file_path+'/templates/'
 
     posts = [HtmlChapter(x) for x in get_files(current_directory+'/posts/')] 
- 
+    
+    for post in posts:
+        print("abstract of ", post, post.abstract)
     # load templates folder to environment (security measure)
     env = Environment(loader=FileSystemLoader(template_location))
    
@@ -40,6 +42,8 @@ def update_index():
     # load the `index.jinja` template
     
     index_template = env.get_template('index.html.j2')
+    print()
+    # Have to write a validator function to make sure no error occurs during rendering
     output_from_parsed_template = index_template.render(posts=posts, blog_name=meta_data['name'],author_name=meta_data['default_author'])
     
         

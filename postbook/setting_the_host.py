@@ -44,7 +44,8 @@ def host_setup(ip_address,username,password):
         print (line)
     print("Setting up permissions...")
     print(working_dir)
-    permission_command = f'mkdir blog && chmod +x {working_dir} chmod +x blog'
+    permission_command_main_dir = f'mkdir blog && chmod +x {working_dir} && chmod +x blog'
+    permission_command_posts_dir = f'mkdir blog/posts'
     (stdin, stdout, stderr) = s.exec_command(permission_command)
     for line in stdout.readlines():
         print (line)
