@@ -15,9 +15,9 @@ class HtmlChapter:
             self.abstract = meta_data[self.title.replace('_',' ')]['abstract']
             self.published_on = meta_data[self.title.replace('_',' ')]['published_on']
         if(meta_data['domain']):
-            path = f"http://{meta_data['domain']}/" + self.title+'.html'
+            path = f"http://{meta_data['domain']}/blog/" + self.title
         else:
-            path = f"http://{meta_data['ip_address']}/" + self.title+'.html'
+            path = f"http://{meta_data['ip_address']}/blog/" + self.title
         return path
 
     def __str__(self):

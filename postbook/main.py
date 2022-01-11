@@ -138,7 +138,7 @@ def setup():
     host_setup(meta_data['ip_address'],meta_data['username'],meta_data['password'])
 
 @app.command()
-def notebooks(nb_path):
+def notebooks(nb_path,page_name):
     onlyfiles = [f for f in os.listdir(nb_path) if os.path.isfile(os.path.join(nb_path, f))]
     nb_files = [f for f in onlyfiles if re.search('\.ipynb',f)]
     for filename in os.listdir('posts'):
@@ -152,7 +152,7 @@ def notebooks(nb_path):
         except Exception as e:
             print('Failed to delete %s. Reason: %s' % (file_path, e))
     for nb_file in nb_files:
-        publish(os.path.join(nb_path, nb_file))
+        publish(os.path.join(nb_path, nb_file),page_name)
 
 @app.command()
 def page(page_name):
