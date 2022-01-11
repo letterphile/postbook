@@ -3,7 +3,7 @@ import os,shutil
 import pickle
 app = typer.Typer()
 from postbook.get_list_of_files import get_files
-from postbook.write_html import write_html
+from postbook.write_html import write_html,write_html2
 from postbook.send_files import send_files
 from postbook.update_index import update_index
 from postbook.setting_the_host import host_setup
@@ -98,7 +98,7 @@ def html(path_to_file:str):
    
     current_directory = os.getcwd()
     
-    html_file_location = write_html(path_to_file,post_title)
+    html_file_location = write_html2(path_to_file,post_title)
     published_on = datetime.now().strftime("%d-%B-%Y (%I:%M %p)")
     
     
@@ -158,7 +158,14 @@ def notebooks(nb_path,page_name):
 def page(page_name):
     dir_name = make_dir(page_name)
     print(f'{dir_name} directory created..')
-
+@app.command()
+def put(path_to_file,page_name):
+    post_title = re.search('([a-zA-Z0-9_]*).ipynb',path_to_file).group(1).replace('_',' ')
+    
+    current_directory = os.getcwd()
+    
+    html_file_location = write_html2(path_to_file,post_title)
+    send_files(html_file_location,f'/root/site/{page_name}/index.html')
 def main():
     app()
     

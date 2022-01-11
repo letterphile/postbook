@@ -179,3 +179,40 @@ def write_html(ipynb_file_path,name):
     with open(html_file_location,'w') as f:
         f.write(body)
     return html_file_location
+
+
+def write_html2(ipynb_file_path,name):
+    
+    current_directory = os.getcwd()
+    with open(current_directory+'/.plog','rb') as p:
+        site_details = pickle.load(p)
+    html_exporter = CustomExporter(template_name='aswins')
+    try:
+        html_exporter.render_data = {'blog_name':site_details['name'],'blog_title':name,'published_on':site_details[name]['published_on']} #monkey patching
+    except KeyError:
+        published_on = datetime.now().strftime("%d-%B-%Y (%I:%M %p)")
+        site_details[name]={'published_on':published_on} 
+        with open(current_directory+'/.plog','wb') as p:  
+            pickle.dump(site_details,p)
+            html_exporter.render_data = {'blog_name':site_details['name'],'blog_title':name,'published_on':published_on}
+    final_directory = current_directory
+    with open(ipynb_file_path) as f:
+        jake_notebook = nbformat.reads(json.dumps(json.loads(f.read())), as_version=4)
+    (body, resources) = html_exporter.from_notebook_node(jake_notebook)
+    result = re.search('<p>(.*)</p>', body)  
+    try:     
+        abstract = result.group(1)
+    except Exception:
+        abstract  = None
+    with open(f"{current_directory}/.plog","rb") as f:
+        meta_data = pickle.load(f)
+        try:
+            meta_data[name]['abstract'] = abstract
+        except KeyError:
+            meta_data[name]={'abstract':abstract}
+    with open(f"{current_directory}/.plog","wb") as f:
+        pickle.dump(meta_data,f)
+    html_file_location = os.path.join(final_directory, r'{}'.format(name.replace(' ','_')+'.html'))
+    with open(html_file_location,'w') as f:
+        f.write(body)
+    return html_file_location
