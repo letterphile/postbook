@@ -13062,3 +13062,14 @@ p.date{
   font-family: 'Merriweather', 'serif';
   font-style:italic
 }
+li{
+  font-family: 'Merriweather', 'serif';
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 25px;
+}
+@media only screen and (max-width: 767px){
+  li {
+   font-size:15px;
+ }
+}
